@@ -18,8 +18,6 @@ class MyApp extends StatelessWidget {
 
 class CounterCubit extends Cubit<int> {
   int initialData;
-  int? current;
-  int? next;
 
   CounterCubit({this.initialData = 0}) : super(initialData);
 
@@ -30,25 +28,12 @@ class CounterCubit extends Cubit<int> {
   void minusData() {
     emit(state - 1);
   }
-
-  // Bloc -> fitur untuk memantau data
-  @override
-  void onChange(Change<int> change) {
-    super.onChange(change);
-    current = change.currentState;
-    next = change.nextState;
-  }
-
-  @override
-  void addError(Object error, [StackTrace? stackTrace]) {
-    super.addError(error, stackTrace);
-  }
 }
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final CounterCubit myCounter = CounterCubit(initialData: 0);
+  final CounterCubit myCounter = CounterCubit(initialData: 99);
 
   @override
   Widget build(BuildContext context) {
@@ -63,25 +48,26 @@ class HomePage extends StatelessWidget {
             initialData: myCounter.initialData,
             stream: myCounter.stream,
             builder: (context, snapshot) {
+              // if (snapshot.connectionState == ConnectionState.waiting) {
+              //   return const Center(
+              //     child: Text(
+              //       "Loading..",
+              //       style: TextStyle(fontSize: 50),
+              //     ),
+              //   );
+              // } else {
+              //   return Center(
+              //     child: Text(
+              //       "${snapshot.data}",
+              //       style: const TextStyle(fontSize: 50),
+              //     ),
+              //   );
+              // }
+
               return Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "${snapshot.data}",
-                      style: const TextStyle(fontSize: 50),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Current : ${myCounter.current}",
-                      style: const TextStyle(fontSize: 50),
-                    ),
-                    Text(
-                      "Next : ${myCounter.next}",
-                      style: const TextStyle(fontSize: 50),
-                    ),
-                  ],
+                child: Text(
+                  "${snapshot.data}",
+                  style: const TextStyle(fontSize: 50),
                 ),
               );
             },

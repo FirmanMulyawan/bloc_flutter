@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,7 +29,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("hello");
+    log("hello");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stream Apps"),
